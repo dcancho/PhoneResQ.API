@@ -3,7 +3,7 @@ using PhoneResQ.API.Support.Domain.Services.Communication;
 
 namespace PhoneResQ.API.Support.Domain.Services
 {
-    public class IStatusUpdateService
+    public interface IStatusUpdateService
     {
         Task<IEnumerable<StatusUpdate>> ListAsync();
         Task<StatusUpdateResponse> SaveAsync(StatusUpdate statusUpdate);
