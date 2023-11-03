@@ -1,13 +1,14 @@
 ﻿using PhoneResQ.API.Support.Domain.Models.Entities;
 using PhoneResQ.API.Support.Domain.Services.Communication;
+using PhoneResQ.API.Support.Resources;
 
 namespace PhoneResQ.API.Support.Domain.Services
 {
     public interface ICustomerService
     {
-        Task<IEnumerable<Customer>> ListAsync();
-        Task<CustomerResponse> SaveAsync(Customer customer);
-        Task<CustomerResponse> UpdateAsync(int id, Customer customer);
-        Task<CustomerResponse> DeleteAsync(int id);
+        public Task<IEnumerable<CustomerResource>> ListAsync();
+        public Task<CustomerResponse> SaveAsync(SaveCustomerResource customer);
+        public Task<CustomerResponse> UpdateAsync(int id, SaveCustomerResource customer);
+        public Task<CustomerResponse> DeleteAsync(int id);
     }
 }

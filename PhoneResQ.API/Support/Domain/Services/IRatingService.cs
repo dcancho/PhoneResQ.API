@@ -5,9 +5,9 @@ namespace PhoneResQ.API.Support.Domain.Services
 {
     public interface IRatingService
     {
-        Task<IEnumerable<Rating>> ListAsync();
-        Task<RatingResponse> SaveAsync(Rating rating);
-        Task<RatingResponse> UpdateAsync(int id, Rating rating);
-        Task<RatingResponse> DeleteAsync(int id);
+        public Task<IEnumerable<Rating>> ListAsync();
+        public Task<RatingResponse> SaveAsync(Rating rating);
+        public Task<RatingResponse> UpdateAsync(int id, Rating rating);
+        public Task<RatingResponse> DeleteAsync(int id);
     }
 }

@@ -5,9 +5,9 @@ namespace PhoneResQ.API.Support.Domain.Services
 {
     public interface ITechnicianService
     {
-        Task<IEnumerable<Technician>> ListAsync();
-        Task<TechnicianResponse> SaveAsync(Technician technician);
-        Task<TechnicianResponse> UpdateAsync(int id, Technician technician);
-        Task<TechnicianResponse> DeleteAsync(int id);
+        public Task<IEnumerable<Technician>> ListAsync();
+        public Task<TechnicianResponse> SaveAsync(Technician technician);
+        public Task<TechnicianResponse> UpdateAsync(int id, Technician technician);
+        public Task<TechnicianResponse> DeleteAsync(int id);
     }
 }

@@ -6,6 +6,7 @@
         public long IMEI { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
+        public int OwnerId { get; set; }
         public Customer Owner { get; set; }
     }
 }

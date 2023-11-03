@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace PhoneResQ.API.Shared.Extensions
+namespace PhoneResQ.API.Shared.Infrastructure.Configuration.Extensions
 {
     public static class ModelStateExtensions
     {

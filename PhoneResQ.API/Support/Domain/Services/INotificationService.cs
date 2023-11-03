@@ -5,9 +5,9 @@ namespace PhoneResQ.API.Support.Domain.Services
 {
     public interface INotificationService
     {
-        Task<IEnumerable<Notification>> ListAsync();
-        Task<NotificationResponse> SaveAsync(Notification notification);
-        Task<NotificationResponse> UpdateAsync(int id, Notification notification);
-        Task<NotificationResponse> DeleteAsync(int id);
+            public Task<IEnumerable<Notification>> ListAsync();
+            public Task<NotificationResponse> SaveAsync(Notification notification);
+        public Task<NotificationResponse> UpdateAsync(int id, Notification notification);
+        public Task<NotificationResponse> DeleteAsync(int id);
     }
 }
