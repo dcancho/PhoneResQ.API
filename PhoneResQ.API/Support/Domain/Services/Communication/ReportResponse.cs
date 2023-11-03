@@ -13,5 +13,5 @@ namespace PhoneResQ.API.Support.Domain.Services.Communication
         {
         }
     }
-    }
+
 }
