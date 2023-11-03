@@ -39,17 +39,17 @@ namespace PhoneResQ.API.Support.Application.Internal.Services
             }
         }
 
-        public Task<DeviceResource> FindById(int id)
+        public Task<DeviceResource> ReadAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Device>> ListAsync()
+        public async Task<IEnumerable<Device>> ReadAsync()
         {
             return await _deviceRepository.ListAsync();
         }
 
-        public async Task<DeviceResponse> SaveAsync(Device device)
+        public async Task<DeviceResponse> CreateAsync(Device device)
         {
             var existingDevice = await _deviceRepository.FindByIdAsync(device.Id);
             if (existingDevice != null)
@@ -67,6 +67,11 @@ namespace PhoneResQ.API.Support.Application.Internal.Services
                 // Do some logging stuff
                 return new DeviceResponse($"An error occurred when saving the device: {ex.Message}");
             }   
+        }
+
+        public Task<DeviceResponse> UpdateAsync(int id, SaveDeviceResource device)
+        {
+            throw new NotImplementedException();
         }
     }
 }

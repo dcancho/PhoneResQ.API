@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using PhoneResQ.API.Shared.Domain.Repositories;
 using PhoneResQ.API.Shared.Infrastructure.Configuration;
@@ -6,6 +7,9 @@ using PhoneResQ.API.Support.Application.Internal.Services;
 using PhoneResQ.API.Support.Domain.Repositories;
 using PhoneResQ.API.Support.Domain.Services;
 using PhoneResQ.API.Support.Infrastructure.Repositories;
+using AutoMapper;
+using PhoneResQ.API.Support.Resources;
+using PhoneResQ.API.Support.Domain.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +45,8 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
 builder.Services.AddScoped<IDeviceService, DeviceService>();
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 

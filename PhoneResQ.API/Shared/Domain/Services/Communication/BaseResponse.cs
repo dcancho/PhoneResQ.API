@@ -4,7 +4,7 @@
     {
         public bool Success { get; protected set; }
         public string Message { get; protected set; }
-        public T Resource { get; protected set; }
+        public T? Resource { get; protected set; }
         protected BaseResponse(T resource)
         {
             Resource = resource;

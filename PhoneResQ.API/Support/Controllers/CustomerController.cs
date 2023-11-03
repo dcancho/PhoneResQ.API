@@ -21,7 +21,7 @@ namespace PhoneResQ.API.Support.Controllers
         [HttpGet]
         public async Task<IEnumerable<CustomerResource>> GetAllAsync()
         {
-            var customers = await _customerService.ListAsync();
+            var customers = await _customerService.ReadAsync();
             return customers;
         }
 
@@ -34,7 +34,7 @@ namespace PhoneResQ.API.Support.Controllers
                 return BadRequest(ModelState.GetErrorMessages());
             }
             // Saving the customer (interaction with service)
-            var result = await _customerService.SaveAsync(resource);
+            var result = await _customerService.CreateAsync(resource);
             // If the result is not successful, return the error message
             if (!result.Success)
             {

@@ -6,8 +6,8 @@ namespace PhoneResQ.API.Support.Domain.Services
 {
     public interface ICustomerService
     {
-        public Task<IEnumerable<CustomerResource>> ListAsync();
-        public Task<CustomerResponse> SaveAsync(SaveCustomerResource customer);
+        public Task<IEnumerable<CustomerResource>> ReadAsync();
+        public Task<CustomerResponse> CreateAsync(SaveCustomerResource customer);
         public Task<CustomerResponse> UpdateAsync(int id, SaveCustomerResource customer);
         public Task<CustomerResponse> DeleteAsync(int id);
     }

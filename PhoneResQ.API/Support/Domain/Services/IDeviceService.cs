@@ -7,9 +7,10 @@ namespace PhoneResQ.API.Support.Domain.Services
 {
     public interface IDeviceService
     {
-        public Task<DeviceResource> FindById(int id);
-        public Task<IEnumerable<Device>> ListAsync();
-        public Task<DeviceResponse> UpdateAsync(Device device);
+        public Task<DeviceResponse> CreateAsync(Device device);
+        public Task<DeviceResource> ReadAsync(int id);
+        public Task<IEnumerable<Device>> ReadAsync();
+        public Task<DeviceResponse> UpdateAsync(int id,SaveDeviceResource device);
         public Task<DeviceResponse> DeleteAsync(int id);
     }
 }
