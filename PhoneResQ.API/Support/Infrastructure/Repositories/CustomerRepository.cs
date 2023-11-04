@@ -2,6 +2,7 @@
 using PhoneResQ.API.Shared.Infrastructure.Repositories;
 using PhoneResQ.API.Support.Domain.Models.Entities;
 using PhoneResQ.API.Support.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace PhoneResQ.API.Support.Infrastructure.Repositories
 {
@@ -13,7 +14,7 @@ namespace PhoneResQ.API.Support.Infrastructure.Repositories
 
         public Task<Customer?> FindByDNIAsync(string dni)
         {
-            throw new NotImplementedException();
+            return _context.Customers.FirstOrDefaultAsync(c => c.DNI == dni);
         }
     }
 }
