@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PhoneResQ.API.Shared.Infrastructure.Configuration.Extensions;
-using PhoneResQ.API.Support.Domain.Models.Entities;
 using PhoneResQ.API.Support.Domain.Services;
 using PhoneResQ.API.Support.Resources;
 
@@ -33,6 +32,7 @@ namespace PhoneResQ.API.Support.Controllers
             {
                 return BadRequest(ModelState.GetErrorMessages());
             }
+
             // Saving the customer (interaction with service)
             var result = await _customerService.CreateAsync(resource);
             // If the result is not successful, return the error message

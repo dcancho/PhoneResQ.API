@@ -1,4 +1,6 @@
-﻿namespace PhoneResQ.API.Support.Domain.Models.Entities
+﻿using PhoneResQ.API.Support.Domain.Models.Entities;
+
+namespace PhoneResQ.API.Support.Domain.Models.Entities
 {
     public class Device
     {
