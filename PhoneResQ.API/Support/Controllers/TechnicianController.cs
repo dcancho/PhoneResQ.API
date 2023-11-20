@@ -11,19 +11,18 @@ namespace PhoneResQ.API.Support.Controllers;
 [ApiController]
 public class TechnicianController: ControllerBase
 {
-    private readonly ITechnicianService _technicianService;
-
-    public TechnicianController(ITechnicianService technicianService)
+    private readonly ITechnicianService _service;
+   
+    public TechnicianController(ITechnicianService service)
     {
-        _technicianService = technicianService;
+        _service = service;
     }
-
+    
     [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
+    public async Task<IEnumerable<TechnicianResource>> GetAllAsync()
     {
-        var technicians = await _technicianService.ListAsync();
-        var technicianResources = MapTechniciansToTechnicianResources(technicians);
-        return Ok(technicianResources);
+        var technicians = await _service.ReadAsync();
+        return technicians;
     }
     
     [HttpPost]
@@ -34,68 +33,29 @@ public class TechnicianController: ControllerBase
         {
             return BadRequest(ModelState.GetErrorMessages());
         }
-        var technician = new Technician
-        {
-            Name = resource.Name,
-            DNI = resource.DNI,
-            Address = resource.Address,
-            Password = resource.Password,
-        };
+
         // Saving the technician (interaction with service)
-        var result = await _technicianService.SaveAsync(technician);  // If the result is not successful, return the error message
+        var result = await _service.SaveAsync(resource);
+
+        // If the result is not successful, return the error message
         if (!result.Success)
         {
             return BadRequest(result.Message);
         }
+
         // Returning the action result
         return Ok(result);
     }
     
+    // PUT api/<TechnicianController>/5
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutAsync(int id, [FromBody] SaveTechnicianResource resource)
+    public void Put(int id, [FromBody] string value)
     {
-        // Validation of the resource
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState.GetErrorMessages());
-        }
-        var technician = new Technician
-        {
-            Name = resource.Name,
-            DNI = resource.DNI,
-            Address = resource.Address,
-            Password = resource.Password,
-        };
-        // Saving the technician (interaction with service)
-        var result = await _technicianService.UpdateAsync(id, technician);  // If the result is not successful, return the error message
-        if (!result.Success)
-        {
-            return BadRequest(result.Message);
-        }
-        // Returning the action result
-        return Ok(result);
     }
     
+    // DELETE api/<TechnicianController>/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(int id)
+    public void Delete(int id)
     {
-        var result = await _technicianService.DeleteAsync(id);
-        if (!result.Success)
-        {
-            return BadRequest(result.Message);
-        }
-        return Ok(result);
-    }
-    
-    private static List<TechnicianResource> MapTechniciansToTechnicianResources(IEnumerable<Technician> technicians)
-    {
-        return technicians.Select(technician => new TechnicianResource
-        {
-            Id = technician.Id,
-            Name = technician.Name,
-            DNI = technician.DNI,
-            Address = technician.Address,
-            Password = technician.Password
-        }).ToList();
     }
 }
