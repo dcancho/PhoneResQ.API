@@ -80,5 +80,25 @@ namespace PhoneResQ.API.Support.Application.Internal.Services
             }
         }
 
+        public async Task<bool> LoginAsync(CustomerLoginResource customer)
+        {
+            var existingCustomer = await _customerRepository.FindByEmailAsync(customer.Email);
+            if (existingCustomer != null)
+            {
+                if (existingCustomer.Password == customer.Password)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+                // throw new Exception("Customer not found.");
+            }
+        }
     }
 }

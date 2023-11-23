@@ -14,7 +14,6 @@ namespace PhoneResQ.API.Support.Resources
     public class SaveStatusUpdateResource
     {
         public string Description { get; set; }
-        public OrderStatus Status { get; set; }
         public int AssociatedOrderId { get; set; }
         public int TechnicianId { get; set; }
     }

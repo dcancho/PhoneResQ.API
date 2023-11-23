@@ -21,5 +21,6 @@ namespace PhoneResQ.API.Support.Resources
         public Customer Customer { get; set; }
         public Technician Technician { get; set; }
         public SupportCenter SupportCenter { get; set; }
+        
     }
 }

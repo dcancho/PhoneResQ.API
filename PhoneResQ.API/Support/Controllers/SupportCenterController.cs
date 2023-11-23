@@ -34,14 +34,8 @@ public class SupportCenterController : ControllerBase
         {
             return BadRequest(ModelState.GetErrorMessages());
         }
-        var supportCenter = new SupportCenter
-        {
-            Name = resource.Name,
-            RUC = resource.RUC,
-            Address = resource.Address,
-        };
         // Saving the supportCenter (interaction with service)
-        var result = await _supportCenterService.SaveAsync(supportCenter);  // If the result is not successful, return the error message
+        var result = await _supportCenterService.SaveAsync(resource);  // If the result is not successful, return the error message
         if (!result.Success)
         {
             return BadRequest(result.Message);

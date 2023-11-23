@@ -18,13 +18,19 @@ namespace PhoneResQ.API.Support.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CustomerResource>> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             var customers = await _customerService.ReadAsync();
-            return customers;
+            if (customers == null)
+            {
+                return NotFound();
+            }
+            return Ok(customers);
         }
 
+        // Register a new customer. Returns true if the registration was successful, false otherwise.
         [HttpPost]
+        [Route(template:"register")]
         public async Task<IActionResult> PostAsync([FromBody] SaveCustomerResource resource)
         {
             // Validation of the resource
@@ -44,16 +50,22 @@ namespace PhoneResQ.API.Support.Controllers
             return Ok(result);
         }
 
-        // PUT api/<CustomerController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // Login. Returns true if the login was successful, false otherwise.
+        [HttpPost]
+        [Route(template:"login")]
+        public async Task<IActionResult> PostAsync([FromBody] CustomerLoginResource resource)
         {
-        }
+            // Validation of the resource
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetErrorMessages());
+            }
+            
+            // Login (interaction with service)
+            var result = await _customerService.LoginAsync(resource);
 
-        // DELETE api/<CustomerController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            // Returning the action result
+            return Ok(result);
         }
     }
 }

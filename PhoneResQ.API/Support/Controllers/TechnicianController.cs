@@ -11,22 +11,23 @@ namespace PhoneResQ.API.Support.Controllers;
 [ApiController]
 public class TechnicianController: ControllerBase
 {
-    private readonly ITechnicianService _technicianService;
-
-    public TechnicianController(ITechnicianService technicianService)
+    private readonly ITechnicianService _service;
+   
+    public TechnicianController(ITechnicianService service)
     {
-        _technicianService = technicianService;
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
-    {
-        var technicians = await _technicianService.ListAsync();
-        var technicianResources = MapTechniciansToTechnicianResources(technicians);
-        return Ok(technicianResources);
+        _service = service;
     }
     
+    [HttpGet]
+    public async Task<IEnumerable<TechnicianResource>> GetAllAsync()
+    {
+        var technicians = await _service.ReadAsync();
+        return technicians;
+    }
+    
+    // Register a new technician. Returns true if the registration was successful, false otherwise.
     [HttpPost]
+    [Route("register")]
     public async Task<IActionResult> PostAsync([FromBody] SaveTechnicianResource resource)
     {
         // Validation of the resource
@@ -34,68 +35,41 @@ public class TechnicianController: ControllerBase
         {
             return BadRequest(ModelState.GetErrorMessages());
         }
-        var technician = new Technician
-        {
-            Name = resource.Name,
-            DNI = resource.DNI,
-            Address = resource.Address,
-            Password = resource.Password,
-        };
+
         // Saving the technician (interaction with service)
-        var result = await _technicianService.SaveAsync(technician);  // If the result is not successful, return the error message
+        var result = await _service.SaveAsync(resource);
+
+        // If the result is not successful, return the error message
         if (!result.Success)
         {
             return BadRequest(result.Message);
         }
+
         // Returning the action result
         return Ok(result);
     }
     
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutAsync(int id, [FromBody] SaveTechnicianResource resource)
+    // Login. Returns true if the login was successful, false otherwise.
+    [HttpPost]
+    [Route("login")]
+    public async Task<IActionResult> PostAsync([FromBody] TechnicianLoginResource resource)
     {
         // Validation of the resource
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState.GetErrorMessages());
         }
-        var technician = new Technician
-        {
-            Name = resource.Name,
-            DNI = resource.DNI,
-            Address = resource.Address,
-            Password = resource.Password,
-        };
+
         // Saving the technician (interaction with service)
-        var result = await _technicianService.UpdateAsync(id, technician);  // If the result is not successful, return the error message
-        if (!result.Success)
+        var result = await _service.LoginAsync(resource);
+
+        // If the result is not successful, return the error message
+        if (!result)
         {
-            return BadRequest(result.Message);
+            return BadRequest("Login failed.");
         }
+
         // Returning the action result
         return Ok(result);
-    }
-    
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(int id)
-    {
-        var result = await _technicianService.DeleteAsync(id);
-        if (!result.Success)
-        {
-            return BadRequest(result.Message);
-        }
-        return Ok(result);
-    }
-    
-    private static List<TechnicianResource> MapTechniciansToTechnicianResources(IEnumerable<Technician> technicians)
-    {
-        return technicians.Select(technician => new TechnicianResource
-        {
-            Id = technician.Id,
-            Name = technician.Name,
-            DNI = technician.DNI,
-            Address = technician.Address,
-            Password = technician.Password
-        }).ToList();
     }
 }

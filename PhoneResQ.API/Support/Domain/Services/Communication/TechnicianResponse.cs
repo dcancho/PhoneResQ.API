@@ -1,11 +1,12 @@
 ﻿using PhoneResQ.API.Shared.Domain.Services.Communication;
 using PhoneResQ.API.Support.Domain.Models.Entities;
+using PhoneResQ.API.Support.Resources;
 
 namespace PhoneResQ.API.Support.Domain.Services.Communication
 {
-    public class TechnicianResponse : BaseResponse<Technician>
+    public class TechnicianResponse : BaseResponse<TechnicianResource>
     {
-        public TechnicianResponse(Technician resource) : base(resource)
+        public TechnicianResponse(TechnicianResource resource) : base(resource)
         {
         }
 
