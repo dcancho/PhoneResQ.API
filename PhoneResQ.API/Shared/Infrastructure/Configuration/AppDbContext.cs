@@ -70,6 +70,19 @@ namespace PhoneResQ.API.Shared.Infrastructure.Configuration
                                   .HasForeignKey(t => t.SupportCenterId)
                                   .IsRequired(false);
 
+
+            modelBuilder.Entity<Notification>().ToTable("Notifications");
+            modelBuilder.Entity<Notification>().HasKey(n => n.Id);
+            modelBuilder.Entity<Notification>().Property(n => n.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<Notification>().Property(n => n.Message).IsRequired();
+            modelBuilder.Entity<Notification>().Property(n => n.Date)
+                .HasConversion(
+                    d => d.ToString(),  // Convert DateTime to string when saving to database
+                    s => DateTime.Parse(s)  // Convert string to DateTime when reading from database
+                );
+            modelBuilder.Entity<Notification>().Property(n => n.StatusUpdate).IsRequired();
+            modelBuilder.Entity<Notification>().HasOne(n => n.Recipient);
+
             modelBuilder.UseSnakeCaseNamingConvention();
 
 
