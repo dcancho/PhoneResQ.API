@@ -11,5 +11,6 @@ namespace PhoneResQ.API.Support.Domain.Services
         public Task<CustomerResponse> UpdateAsync(int id, SaveCustomerResource customer);
         public Task<CustomerResponse> DeleteAsync(int id);
         public Task<bool> LoginAsync(CustomerLoginResource customer);
+        public Task<CustomerResponse> FindByEmailAsync(string email);
     }
 }

@@ -12,5 +12,6 @@ namespace PhoneResQ.API.Support.Domain.Services
         public Task<TechnicianResponse> DeleteAsync(int id);
         Task<IEnumerable<TechnicianResource>> ReadAsync();
         public Task<bool> LoginAsync(TechnicianLoginResource technician);
+        public Task<TechnicianResponse> FindByDniAsync(string dni);
     }
 }

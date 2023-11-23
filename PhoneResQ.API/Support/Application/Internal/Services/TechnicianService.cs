@@ -141,4 +141,16 @@ public class TechnicianService : ITechnicianService
             // throw new Exception("Customer not found.");
         }
     }
+
+    public async Task<TechnicianResponse> FindByDniAsync(string dni)
+    {
+        var existingTechnician = await _technicianRepository.FindByTechnicianDniAsync(dni);
+
+        if (existingTechnician == null)
+            return new TechnicianResponse("Technician not found.");
+
+        var technicianResource = _mapper.Map<TechnicianResource>(existingTechnician);
+
+        return new TechnicianResponse(technicianResource);
+    }
 }
