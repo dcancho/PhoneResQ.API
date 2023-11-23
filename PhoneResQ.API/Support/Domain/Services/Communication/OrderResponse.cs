@@ -4,9 +4,9 @@ using PhoneResQ.API.Support.Resources;
 
 namespace PhoneResQ.API.Support.Domain.Services.Communication
 {
-    public class OrderResponse : BaseResponse<Order>
+    public class OrderResponse : BaseResponse<OrderResource>
     {
-        public OrderResponse(Order resource) : base(resource)
+        public OrderResponse(OrderResource resource) : base(resource)
         {
         }
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PhoneResQ.API.Shared.Domain.Repositories;
 using PhoneResQ.API.Support.Domain.Models.Entities;
+using PhoneResQ.API.Support.Domain.Repositories;
 using PhoneResQ.API.Support.Domain.Services;
 using PhoneResQ.API.Support.Domain.Services.Communication;
 using PhoneResQ.API.Support.Infrastructure.Repositories;
@@ -10,13 +11,13 @@ namespace PhoneResQ.API.Support.Application.Internal.Services;
 
 public class TechnicianService : ITechnicianService
 {
-    private readonly TechnicianRepository _technicianRepository;
+    private readonly ITechnicianRepository _technicianRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-    private readonly SupportCenterRepository _supportCenterRepository;
+    private readonly ISupportCenterRepository _supportCenterRepository;
 
     
-    public TechnicianService(TechnicianRepository technicianRepository, SupportCenterRepository supportCenterRepository, IUnitOfWork unitOfWork, IMapper mapper)
+    public TechnicianService(ITechnicianRepository technicianRepository, ISupportCenterRepository supportCenterRepository, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _technicianRepository = technicianRepository;
         _supportCenterRepository = supportCenterRepository;
@@ -119,6 +120,25 @@ public class TechnicianService : ITechnicianService
     {
         return await _technicianRepository.ListAsync();
     }
-    
-    
+
+    public async Task<bool> LoginAsync(TechnicianLoginResource technician)
+    {
+        var existingTechnician = await _technicianRepository.FindByTechnicianDniAsync(technician.DNI);
+        if (existingTechnician != null)
+        {
+            if (existingTechnician.Password == technician.Password)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+            // throw new Exception("Customer not found.");
+        }
+    }
 }

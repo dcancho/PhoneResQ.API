@@ -1,11 +1,12 @@
 ﻿using PhoneResQ.API.Shared.Domain.Services.Communication;
 using PhoneResQ.API.Support.Domain.Models.Entities;
+using PhoneResQ.API.Support.Resources;
 
 namespace PhoneResQ.API.Support.Domain.Services.Communication
 {
-    public class StatusUpdateResponse: BaseResponse<StatusUpdate>
+    public class StatusUpdateResponse: BaseResponse<StatusUpdateResource>
     {
-        public StatusUpdateResponse(StatusUpdate resource) : base(resource)
+        public StatusUpdateResponse(StatusUpdateResource resource) : base(resource)
         {
         }
 

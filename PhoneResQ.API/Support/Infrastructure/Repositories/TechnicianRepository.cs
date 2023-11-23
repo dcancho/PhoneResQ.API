@@ -17,5 +17,7 @@ public class TechnicianRepository : BaseRepository<Technician>, ITechnicianRepos
     {
         return _context.Technicians.FirstOrDefaultAsync(t => t.DNI == dni);
     }
+
+    
     
 }

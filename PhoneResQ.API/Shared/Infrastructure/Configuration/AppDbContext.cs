@@ -48,7 +48,31 @@ namespace PhoneResQ.API.Shared.Infrastructure.Configuration
             modelBuilder.Entity<Device>().Property(d => d.Model).IsRequired().HasMaxLength(20);
             #endregion
 
+            modelBuilder.Entity<SupportCenter>().ToTable("SupportCenters");
+            modelBuilder.Entity<SupportCenter>().HasKey(sc => sc.Id);
+            modelBuilder.Entity<SupportCenter>().Property(sc => sc.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<SupportCenter>().Property(sc => sc.Name).IsRequired().HasMaxLength(30);
+            modelBuilder.Entity<SupportCenter>().Property(sc => sc.RUC).IsRequired().HasMaxLength(11);
+            modelBuilder.Entity<SupportCenter>().Property(sc => sc.Address).IsRequired().HasMaxLength(50);
+
+            modelBuilder.Entity<Technician>().ToTable("Technicians");
+            modelBuilder.Entity<Technician>().HasKey(t => t.Id);
+            modelBuilder.Entity<Technician>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+            modelBuilder.Entity<Technician>().Property(t => t.Name).IsRequired().HasMaxLength(30);
+            modelBuilder.Entity<Technician>().Property(t => t.DNI).IsRequired().HasMaxLength(8);
+            modelBuilder.Entity<Technician>().Property(t => t.Address).IsRequired().HasMaxLength(32);
+            modelBuilder.Entity<Technician>().Property(t => t.Password).IsRequired().HasMaxLength(16);
+            modelBuilder.Entity<Technician>().Property(t => t.SupportCenterId).IsRequired();
+
+            // Relationship: a technician belongs to a support center
+            modelBuilder.Entity<Technician>().HasOne(t => t.SupportCenter)
+                                  .WithMany()
+                                  .HasForeignKey(t => t.SupportCenterId)
+                                  .IsRequired(false);
+
             modelBuilder.UseSnakeCaseNamingConvention();
+
+
         }
     }
 }

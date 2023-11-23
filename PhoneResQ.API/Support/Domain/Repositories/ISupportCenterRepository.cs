@@ -5,5 +5,5 @@ namespace PhoneResQ.API.Support.Domain.Repositories;
 
 public interface ISupportCenterRepository : IBaseRepository<SupportCenter>
 {
-    
+    Task<bool> FindByRUCAsync(string RUC);
 }

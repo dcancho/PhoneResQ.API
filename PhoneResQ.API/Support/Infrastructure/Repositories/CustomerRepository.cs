@@ -16,5 +16,10 @@ namespace PhoneResQ.API.Support.Infrastructure.Repositories
         {
             return _context.Customers.FirstOrDefaultAsync(c => c.DNI == dni);
         }
+
+        public Task<Customer?> FindByEmailAsync(string email)
+        {
+            return _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
+        }
     }
 }

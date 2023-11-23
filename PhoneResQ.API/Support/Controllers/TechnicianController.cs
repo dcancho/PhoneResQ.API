@@ -25,7 +25,9 @@ public class TechnicianController: ControllerBase
         return technicians;
     }
     
+    // Register a new technician. Returns true if the registration was successful, false otherwise.
     [HttpPost]
+    [Route("register")]
     public async Task<IActionResult> PostAsync([FromBody] SaveTechnicianResource resource)
     {
         // Validation of the resource
@@ -47,15 +49,27 @@ public class TechnicianController: ControllerBase
         return Ok(result);
     }
     
-    // PUT api/<TechnicianController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    // Login. Returns true if the login was successful, false otherwise.
+    [HttpPost]
+    [Route("login")]
+    public async Task<IActionResult> PostAsync([FromBody] TechnicianLoginResource resource)
     {
-    }
-    
-    // DELETE api/<TechnicianController>/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
+        // Validation of the resource
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState.GetErrorMessages());
+        }
+
+        // Saving the technician (interaction with service)
+        var result = await _service.LoginAsync(resource);
+
+        // If the result is not successful, return the error message
+        if (!result)
+        {
+            return BadRequest("Login failed.");
+        }
+
+        // Returning the action result
+        return Ok(result);
     }
 }

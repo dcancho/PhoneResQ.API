@@ -11,5 +11,6 @@ namespace PhoneResQ.API.Support.Domain.Services
         public Task<TechnicianResponse> UpdateAsync(int id, SaveTechnicianResource technician);
         public Task<TechnicianResponse> DeleteAsync(int id);
         Task<IEnumerable<TechnicianResource>> ReadAsync();
+        public Task<bool> LoginAsync(TechnicianLoginResource technician);
     }
 }
