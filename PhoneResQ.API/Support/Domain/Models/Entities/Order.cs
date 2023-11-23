@@ -7,10 +7,10 @@ namespace PhoneResQ.API.Support.Domain.Models.Entities
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public OrderStatus Status { get; set; }
-        public string Description { get; set; }
-        public Device Device { get; set; }
-        public Customer Customer { get; set; }
-        public Technician Technician { get; set; }
-        public SupportCenter SupportCenter { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public Device Device { get; set; } = null!;
+        public Customer Customer { get; set; } = null!;
+        public Technician Technician { get; set; } = null!;
+        public SupportCenter SupportCenter { get; set; } = null!;
     }
 }

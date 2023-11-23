@@ -31,6 +31,7 @@ public class DeviceController : ControllerBase
         return deviceResources;
     }
     [HttpPost]
+    [Route(template:"register-device")]
     public async Task<IActionResult> PostAsync([FromBody] SaveDeviceResource resource)
     {
         // Validation of the resource
@@ -54,18 +55,5 @@ public class DeviceController : ControllerBase
         // Returning the action result
         return Ok(result);
     }
-    // PUT api/<DeviceController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-        
-    }
-    // DELETE api/<DeviceController>/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
-        
-    }
-  
-
+    
 }

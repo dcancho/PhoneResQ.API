@@ -62,7 +62,7 @@ public class TechnicianService : ITechnicianService
             return new TechnicianResponse($"An error occurred when saving the technician: {ex.Message}");
         }
 
-        return new TechnicianResponse(newTechnician);
+        return new TechnicianResponse(_mapper.Map<Technician, TechnicianResource>(newTechnician));
     }
     
     public async Task<TechnicianResponse> UpdateAsync(int id, SaveTechnicianResource technician)
@@ -88,7 +88,7 @@ public class TechnicianService : ITechnicianService
             _technicianRepository.Update(existingTechnician);
             await _unitOfWork.CompleteAsync();
 
-            return new TechnicianResponse(existingTechnician);
+            return new TechnicianResponse(_mapper.Map<Technician, TechnicianResource>(existingTechnician));
         }
         catch (Exception ex)
         {
@@ -108,7 +108,7 @@ public class TechnicianService : ITechnicianService
             _technicianRepository.Remove(existingTechnician);
             await _unitOfWork.CompleteAsync();
 
-            return new TechnicianResponse(existingTechnician);
+            return new TechnicianResponse(_mapper.Map<Technician, TechnicianResource>(existingTechnician));
         }
         catch (Exception ex)
         {

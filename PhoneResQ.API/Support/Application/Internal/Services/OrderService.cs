@@ -60,7 +60,7 @@ namespace PhoneResQ.API.Support.Application.Internal.Services
                 return new OrderResponse($"An error occurred when saving the order: {ex.Message}");
             }
 
-            return new OrderResponse(newOrder);
+            return new OrderResponse(_mapper.Map<Order, OrderResource>(newOrder));
         }
 
         public async Task<OrderResponse> DeleteAsync(int id)
@@ -75,7 +75,7 @@ namespace PhoneResQ.API.Support.Application.Internal.Services
                 _orderRepository.Remove(existingOrder);
                 await _unitOfWork.CompleteAsync();
 
-                return new OrderResponse(existingOrder);
+                return new OrderResponse(_mapper.Map<Order, OrderResource>(existingOrder));
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace PhoneResQ.API.Support.Application.Internal.Services
                 _orderRepository.Update(existingOrder);
                 await _unitOfWork.CompleteAsync();
 
-                return new OrderResponse(existingOrder);
+                return new OrderResponse(_mapper.Map<Order, OrderResource>(existingOrder));
             }
             catch (Exception ex)
             {

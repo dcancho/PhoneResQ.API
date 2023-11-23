@@ -1,15 +1,7 @@
-// IMPLEMENT ISUPPORTCENTERSERVICE
-// Path: PhoneResQ.API/Support/Application/Internal/Services/SupportCenterService.cs
-
 using AutoMapper;
 using PhoneResQ.API.Shared.Domain.Repositories;
 using PhoneResQ.API.Support.Domain.Models.Entities;
 using PhoneResQ.API.Support.Domain.Repositories;
-
-
-// IMPLEMENT ISUPPORTCENTERSERVICE
-// Path: PhoneResQ.API/Support/Application/Internal/Services/SupportCenterService.cs
-
 using PhoneResQ.API.Support.Domain.Services;
 using PhoneResQ.API.Support.Domain.Services.Communication;
 using PhoneResQ.API.Support.Resources;
@@ -62,11 +54,6 @@ namespace PhoneResQ.API.Support.Application.Internal.Services
                 return new SupportCenterResponse($"An error occurred when saving the support center: {ex.Message}");
             }
 
-        }
-
-        public Task<SupportCenterResponse> SaveAsync(SupportCenter supportCenter)
-        {
-            throw new NotImplementedException();
         }
 
         public Task<SupportCenterResponse> UpdateAsync(int id, SupportCenter supportCenter)
