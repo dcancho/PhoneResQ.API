@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using PhoneResQ.API.Shared.Infrastructure.Configuration.Extensions;
 using PhoneResQ.API.Support.Domain.Services;
+using PhoneResQ.API.Support.Domain.Services.Communication;
 using PhoneResQ.API.Support.Resources;
 
 namespace PhoneResQ.API.Support.Controllers
 {
-    [Route(template:"api/v1/[controller]")]
+    [Route(template: "api/v1/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
@@ -30,11 +31,11 @@ namespace PhoneResQ.API.Support.Controllers
 
         // Register a new customer. Returns true if the registration was successful, false otherwise.
         [HttpPost]
-        [Route(template:"register")]
+        [Route(template: "register")]
         public async Task<IActionResult> PostAsync([FromBody] SaveCustomerResource resource)
         {
             // Validation of the resource
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.GetErrorMessages());
             }
@@ -52,20 +53,27 @@ namespace PhoneResQ.API.Support.Controllers
 
         // Login. Returns true if the login was successful, false otherwise.
         [HttpPost]
-        [Route(template:"login")]
+        [Route(template: "login")]
         public async Task<IActionResult> PostAsync([FromBody] CustomerLoginResource resource)
         {
             // Validation of the resource
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.GetErrorMessages());
             }
-            
+
             // Login (interaction with service)
             var result = await _customerService.LoginAsync(resource);
 
             // Returning the action result
             return Ok(result);
+        }
+
+
+        [HttpGet("email/{email}")]
+        public async Task<CustomerResponse> GetAsync(string email)
+        {
+            return await _customerService.FindByEmailAsync(email);
         }
     }
 }

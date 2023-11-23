@@ -27,9 +27,9 @@ namespace PhoneResQ.API.Support.Application.Internal.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<SupportCenter>> ListAsync()
+        public async Task<IEnumerable<SupportCenter>> ListAsync()
         {
-            throw new NotImplementedException();
+            return await _supportCenterRepository.ListAsync();
         }
 
         public async Task<SupportCenterResponse> SaveAsync(SaveSupportCenterResource supportCenter)

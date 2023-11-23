@@ -100,5 +100,18 @@ namespace PhoneResQ.API.Support.Application.Internal.Services
                 // throw new Exception("Customer not found.");
             }
         }
+
+        public async Task<CustomerResponse> FindByEmailAsync(string email)
+        {
+            var existingCustomer = await _customerRepository.FindByEmailAsync(email);
+
+            if (existingCustomer == null)
+                return new CustomerResponse("Customer not found.");
+
+            var customerResource = _mapper.Map<CustomerResource>(existingCustomer);
+
+            return new CustomerResponse(customerResource);
+
+        }
     }
 }

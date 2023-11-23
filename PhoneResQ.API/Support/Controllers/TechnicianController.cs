@@ -2,6 +2,7 @@
 using PhoneResQ.API.Shared.Infrastructure.Configuration.Extensions;
 using PhoneResQ.API.Support.Domain.Models.Entities;
 using PhoneResQ.API.Support.Domain.Services;
+using PhoneResQ.API.Support.Domain.Services.Communication;
 using PhoneResQ.API.Support.Resources;
 
 namespace PhoneResQ.API.Support.Controllers;
@@ -71,5 +72,13 @@ public class TechnicianController: ControllerBase
 
         // Returning the action result
         return Ok(result);
+    }
+
+    [HttpGet]
+    [Route("dni/{dni}")]
+    public async Task<TechnicianResponse> GetByDniAsync(string dni)
+    {
+        return await _service.FindByDniAsync(dni);
+        
     }
 }
