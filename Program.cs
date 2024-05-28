@@ -15,6 +15,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+if (builder.Environment.IsDevelopment())
+{
+	Console.WriteLine("Development Environment. Setting up User Secrets");
+	builder.Configuration.AddUserSecrets<Program>();
+}
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
